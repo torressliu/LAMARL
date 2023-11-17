@@ -1,4 +1,5 @@
 # Response
+We appreciate your valuable and inspiring comments. Hope that our response can address your concern. If so, we would appreciate it if you could kindly consider raising the score.
 ## Why is clustering representations of actions that have similar environmental effects better than clustering action sequences with similar values or rewards? 
 The in-depth analysis is as follows (we will add to the new version of the paper) :
 -	 Get accurate Q value is difficult: In sparse reward environments (such as FIMDP), reward and Q are difficult to obtain and the evaluation of Q values in the early stage of training is inaccurate. In contrast, environmental dynamic is more reliable and accessible.

@@ -1,5 +1,5 @@
 # Response
-Thanks for your recognition of our work and your willingness to improve score. We hope our reply can answer your questions.
+Thanks for your recognition of our work and your willingness to improve score. We hope our reply can address all your concerns.
 ## The questions are also related to weakness, what are the differences between FIMDP and POMDP, or MDP with reward delays?
 We compare FIMDP with other delayed MDPS and POMDP in the new version for increased readability:
 -The main difference between FIMDP and delayed MDP: FIMDP requires the decision end to maintain continuous motion while controlling the executor to complete the task through low-frequency interaction, and cannot stop. However, the goal of previous delayed MDP was to address reward and action delay, allowing the agent to stall.

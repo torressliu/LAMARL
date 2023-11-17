@@ -3,8 +3,8 @@ We appreciate your valuable and inspiring comments. Hope that our response can a
 ## Why is clustering representations of actions that have similar environmental effects better than clustering action sequences with similar values or rewards? 
 The in-depth analysis is as follows (we will add to the new version of the paper) :
 -	 Get accurate Q value is difficult: In sparse reward environments (such as FIMDP), reward and Q are difficult to obtain and the evaluation of Q values in the early stage of training is inaccurate. In contrast, environmental dynamic is more reliable and accessible.
--	Environmental dynamic contains more information. The same reward or Q value may correspond to different environmental changes, but the same environmental change must have the same reward or Q value.
--	Environmental dynamic is reward-agnostic, i.e. this information/knowledge can be shared and transferred to different tasks in the same environment.
+-	Environmental dynamic contains more information: The same reward or Q value may correspond to different environmental changes, but the same environmental change must have the same reward or Q value.
+-	Environmental dynamic is reward-agnostic: i.e. this information/knowledge can be shared and transferred to different tasks in the same environment.
 -	The following results confirm this conclusion. All methods only change the representation module, and the data and architecture are consistent (average of the 10 runs).
 
 | Method      | Halfcheetah | Walker | maze-hard |
@@ -13,10 +13,9 @@ The in-depth analysis is as follows (we will add to the new version of the paper
 | Q  |$6386.1\pm 412.7$|$4021.6\pm 313.7$|$275.2\pm 13.7$|
 | reward  |$6618.1\pm 372.7$|$4188.3\pm 185.5$|$253.9\pm 21.5$|
 ## In the random FIMDP tasks mentioned in the paper, is the number of decision steps fixed within one trial or randomly decided during execution? 
-The number of decision steps is fixed. In FIMDP, executor must maintain a high frequency of motion when it cannot interact, and cannot stop. Thus, the number of decision steps should be longer than the maximum interaction interval.
+The number of decision steps is fixed. In FIMDP, executor must maintain a high frequency of motion when it cannot interact. Thus, the number of decision steps should be longer than the maximum interaction interval.
 ## How will the method perform if trained with longer action sequences but executed with a shorter interval, compared with training with shorter action sequences?
-we performe an experiment of different length decision steps. Following results show that reducing the number of steps as much as possible can improve scores (Average of the 10 runs. Interval is 10). This is because increasing the number of steps along with the maximum interval time increases the sequence dimension and the reward sparsity increases the task difficulty.
-
+we performe an experiment of different length decision steps. Following results show that reducing the number of steps as much as possible can improve scores (Average of the 10 runs. Interval is 10). As the number of steps increases, both the sequence dimension and the reward sparsity increase. These lead to an explosion of action space dimensions and difficulty in exploration, respectively.
 | task      | 6 step| 12 step| 18 step|
 | :-----------: | :-----------: | :------------: | :-----------: |
 | Walker |$4715.6\pm 343.1$|$4613.2\pm 362.7$|$4215.9\pm 428.3$|
@@ -29,7 +28,7 @@ The new version will cover our method to guarante the training stability in deta
 | Ours |$4463.2\pm 362.7$|$311.4\pm 16.3$|
 | without aligment |$4168.3\pm 372.6$|$213.1\pm 16.7$|
 ## Why MARS has a more pronounced advantage over frame-skips in simpler tasks than in more complex tasks?
-Because the simple tasks does not require too much movement change, the demand for internal diversification of the movement sequence is not high. So frameksip can learn suboptimal policies.
+Because the simple tasks does not require too much action change, the demand for internal diversification of the action sequence is not high. So frameksip can learn suboptimal policies.
 ## Does the decoder need to be run on the execution device? 
 The question is instructive. We do not need to deploy the decoder to the executor. Thus avoid a series of problems. We will highlignt this in the new version to improve readability.
 ## The paper mentions that MARS has better stationarity.  

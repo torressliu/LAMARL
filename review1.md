@@ -1,11 +1,11 @@
 # Response
 We appreciate your valuable and inspiring comments. Hope that our response can address your concern. If so, we would appreciate it if you could kindly consider raising the score.
 ## Why is clustering representations of actions that have similar environmental effects better than clustering action sequences with similar values or rewards? 
-The in-depth analysis is as follows (we will add to the new version of the paper) :
+The in-depth explanation is as follows (Section 1 of the new version, highlight) :
 -	 Get accurate Q value is difficult: In sparse reward environments (such as FIMDP), reward and Q are difficult to obtain and the evaluation of Q values in the early stage of training is inaccurate. In contrast, environmental dynamic is more reliable and accessible.
 -	Environmental dynamic contains more information: The same reward or Q value may correspond to different environmental changes, but the same environmental change must have the same reward or Q value.
--	Environmental dynamic is reward-agnostic: i.e. this information/knowledge can be shared and transferred to different tasks in the same environment. (FIX here, aim to rubust)
--	The following results confirm this conclusion (丰满从实验角度证明我们的方法更好). （我们对比了以上不同的动作表征的学习方式：1，2，3， 其他部分一致）All methods only change the representation module, and the data and architecture are consistent (average of the 10 runs).
+-	Environmental dynamic is reward-agnostic: In FIMDP, rewards are sparse. Environment dynamic do not require per-step reward. Therefore, environmental dynamic representation is more robust in FIMDP.
+Further, in the experimental analysis, we compare these three representational learning methods (1.cluster by Env dynamic 2. cluster by Q 3. cluster by reward). We only changed the clustering representations to ensure experimental fairness (buffer size is $1e6$. Average of the 10 runs).
 
 | Method      | Halfcheetah | Walker | maze-hard |
 | :-----------: | :-----------: | :------------: | :-----------: |
@@ -21,7 +21,7 @@ we performe an experiment of different length decision steps. Following results 
 | Walker |$4715.6\pm 343.1$|$4613.2\pm 362.7$|$4215.9\pm 428.3$|
 | maze-hard  |$271.2\pm 11.4$|$258.3\pm 15.2$|$246.5\pm 21.3$|
 ## In a real-time RL setting, where it's not guaranteed that the actions actually executed by the executor strictly match the policy's output, do the collected trajectory samples inherently lack stationarity? 
-The new version will cover our method to guarante the training stability in detail (A common low-level method used in real-time control. Old version describe this in the appendix). FIMDP is divided into consistent FIMDP and random FIMDP. In consistent FIMDP, the decision end and the executor are strictly aligned. In the random FIMDP, we retain the time stamp and execution flag of each action, which make actions executed in strict accordance with the timestamp order. When the new sequence arrives at the executor, the previous sequence will be replaced, and the execution flag of the unexecuted action will be False. The subsequent rewards will be accumulated into the new sequence. Thus, each latent space action reward is the sum of the executed action reward in the corresponding sequence. Following results shows the effect of alignment method (average of the 10 runs, Interval is 6). （最上面总分，用两个设备上的物理时钟进行对齐，过时则丢）
+Section 3.2 of new version cover our method to guarante the training stability in detail (a common low-level method used in real-time control). Use the physical clocks on both devices to align. If obsolete, lose them. We retain the time stamp and execution flag of each action, which make actions executed in strict accordance with the timestamp order. When the new sequence arrives at the executor, the previous sequence will be replaced, and the execution flag of the unexecuted action will be False. The subsequent rewards will be accumulated into the new sequence. Thus, each latent space action reward is the sum of the executed action reward in the corresponding sequence. Following results shows the effect of alignment method (average of the 10 runs, Interval is 6). 
 
 | Method      | Walker| maze-hard|
 | :-----------: | :------------: | :-----------: |
@@ -29,9 +29,19 @@ The new version will cover our method to guarante the training stability in deta
 | without aligment |$4168.3\pm 372.6$|$213.1\pm 16.7$|
 ## Why MARS has a more pronounced advantage over frame-skips in simpler tasks than in more complex tasks?
 Because the simple tasks does not require too much action change, the demand for internal diversification of the action sequence is not high. So frameksip can learn suboptimal policies.
-## Does the decoder need to be run on the execution device? 
-The question is instructive. We do not need to deploy the decoder to the executor. Thus avoid a series of problems. We will highlignt this in the new version to improve readability. （我们会在每个T都会发送T,T+K动作，因此对未来任意一个t+i 都收到K次，而且K就是最大间隔。因此确保执行端可以收到有效动作序列）
+## Does the decoder need to be run on the execution device? Does this mean that latent representations will also be lost?
+We do not deploy the decoder to the executor. Although there is an interval between interactions, agent will make a c step decision based on each tiemstep information, so each time step (t+i) will receive c times in the future. In addition, our decision sequences are set at maximum intervals to ensure that the executing end receives the next sequence before the previous sequence is completed.
 ## The paper mentions that MARS has better stationarity.  
-We apologize for the misleading wording. "stationarity" means that MARS can ensure the effectiveness of the policy in multiple tasks. To verify this conclusion, we conducted verification in multiple robot control and navigation scenarios.  (Frameskip 动作单一话，advance探索困难)
+Section 1 of new version provides detailed analysis: Our method is more stable than frameskip and Advance decision. 
+- The essence of frameskip is the repetition of an action, which leads to internal homogeneity of the action sequence and the inability to change the action at key states. Thus, the policy is unstable.
+- Advance decision needs to output the whole action sequence (concatenate c steps), and the long action sequence will increase the output dimension (output_dim= c * single_action_dim). This increases the difficulty of the action space exploration. Thus, the agent cannot learn the optimal policy.
+- Our method represents diverse action sequences into low-dimensional space. RL algorithms only need to learn policies in the latent action space. Our method reduces the difficulty of exploration and performs better.
+
+Further, in the experimental analysis, we compare the policy stability of these three methods for sequence length. Ours provides high stability.
+| method     | 6 step| 12 step| 18 step|
+| :-----------: | :-----------: | :------------: | :-----------: |
+| Ours |$4715.6\pm 343.1$|$4613.2\pm 362.7$|$4215.9\pm 428.3$|
+| TD3- frameskip |$3714.7\pm 252.1$|$941.6\pm 603.2$|$195.7\pm 72.5$|
+| TD3- advanced decision |$2368.2\pm 316.4$|$913.2\pm 592.1$|$718.3\pm 176.8$|
 ## Should the "Musar" be referred to as "MARS"?
-We will correct all of them in the new version.
+Correct this in the new version.

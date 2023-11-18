@@ -4,8 +4,8 @@ We appreciate your valuable and inspiring comments. Hope that our response can a
 The in-depth analysis is as follows (we will add to the new version of the paper) :
 -	 Get accurate Q value is difficult: In sparse reward environments (such as FIMDP), reward and Q are difficult to obtain and the evaluation of Q values in the early stage of training is inaccurate. In contrast, environmental dynamic is more reliable and accessible.
 -	Environmental dynamic contains more information: The same reward or Q value may correspond to different environmental changes, but the same environmental change must have the same reward or Q value.
--	Environmental dynamic is reward-agnostic: i.e. this information/knowledge can be shared and transferred to different tasks in the same environment.
--	The following results confirm this conclusion. All methods only change the representation module, and the data and architecture are consistent (average of the 10 runs).
+-	Environmental dynamic is reward-agnostic: i.e. this information/knowledge can be shared and transferred to different tasks in the same environment. (FIX here, aim to rubust)
+-	The following results confirm this conclusion (丰满从实验角度证明我们的方法更好). （我们对比了以上不同的动作表征的学习方式：1，2，3， 其他部分一致）All methods only change the representation module, and the data and architecture are consistent (average of the 10 runs).
 
 | Method      | Halfcheetah | Walker | maze-hard |
 | :-----------: | :-----------: | :------------: | :-----------: |
@@ -21,7 +21,7 @@ we performe an experiment of different length decision steps. Following results 
 | Walker |$4715.6\pm 343.1$|$4613.2\pm 362.7$|$4215.9\pm 428.3$|
 | maze-hard  |$271.2\pm 11.4$|$258.3\pm 15.2$|$246.5\pm 21.3$|
 ## In a real-time RL setting, where it's not guaranteed that the actions actually executed by the executor strictly match the policy's output, do the collected trajectory samples inherently lack stationarity? 
-The new version will cover our method to guarante the training stability in detail (A common low-level method used in real-time control. Old version describe this in the appendix). FIMDP is divided into consistent FIMDP and random FIMDP. In consistent FIMDP, the decision end and the executor are strictly aligned. In the random FIMDP, we retain the time stamp and execution flag of each action, which make actions executed in strict accordance with the timestamp order. When the new sequence arrives at the executor, the previous sequence will be replaced, and the execution flag of the unexecuted action will be False. The subsequent rewards will be accumulated into the new sequence. Thus, each latent space action reward is the sum of the executed action reward in the corresponding sequence. Following results shows the effect of alignment method (average of the 10 runs, Interval is 6).
+The new version will cover our method to guarante the training stability in detail (A common low-level method used in real-time control. Old version describe this in the appendix). FIMDP is divided into consistent FIMDP and random FIMDP. In consistent FIMDP, the decision end and the executor are strictly aligned. In the random FIMDP, we retain the time stamp and execution flag of each action, which make actions executed in strict accordance with the timestamp order. When the new sequence arrives at the executor, the previous sequence will be replaced, and the execution flag of the unexecuted action will be False. The subsequent rewards will be accumulated into the new sequence. Thus, each latent space action reward is the sum of the executed action reward in the corresponding sequence. Following results shows the effect of alignment method (average of the 10 runs, Interval is 6). （最上面总分，用两个设备上的物理时钟进行对齐，过时则丢）
 
 | Method      | Walker| maze-hard|
 | :-----------: | :------------: | :-----------: |
@@ -30,8 +30,8 @@ The new version will cover our method to guarante the training stability in deta
 ## Why MARS has a more pronounced advantage over frame-skips in simpler tasks than in more complex tasks?
 Because the simple tasks does not require too much action change, the demand for internal diversification of the action sequence is not high. So frameksip can learn suboptimal policies.
 ## Does the decoder need to be run on the execution device? 
-The question is instructive. We do not need to deploy the decoder to the executor. Thus avoid a series of problems. We will highlignt this in the new version to improve readability.
+The question is instructive. We do not need to deploy the decoder to the executor. Thus avoid a series of problems. We will highlignt this in the new version to improve readability. （我们会在每个T都会发送T,T+K动作，因此对未来任意一个t+i 都收到K次，而且K就是最大间隔。因此确保执行端可以收到有效动作序列）
 ## The paper mentions that MARS has better stationarity.  
-We apologize for the misleading wording. "stationarity" means that MARS can ensure the effectiveness of the policy in multiple tasks. To verify this conclusion, we conducted verification in multiple robot control and navigation scenarios. 
+We apologize for the misleading wording. "stationarity" means that MARS can ensure the effectiveness of the policy in multiple tasks. To verify this conclusion, we conducted verification in multiple robot control and navigation scenarios.  (Frameskip 动作单一话，advance探索困难)
 ## Should the "Musar" be referred to as "MARS"?
 We will correct all of them in the new version.

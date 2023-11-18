@@ -9,7 +9,7 @@ The in-depth analysis is as follows (we will add to the new version of the paper
 
 | Method      | Halfcheetah | Walker | maze-hard |
 | :-----------: | :-----------: | :------------: | :-----------: |
-| Env dynamic |$7012.1\pm 131.4$|$4821.6\pm 427.6$|$311.4\pm 16.3$|
+| Env dynamic (ours) |$7012.1\pm 131.4$|$4821.6\pm 427.6$|$311.4\pm 16.3$|
 | Q  |$6386.1\pm 412.7$|$4021.6\pm 313.7$|$275.2\pm 13.7$|
 | reward  |$6618.1\pm 372.7$|$4188.3\pm 185.5$|$253.9\pm 21.5$|
 ## In the random FIMDP tasks mentioned in the paper, is the number of decision steps fixed within one trial or randomly decided during execution? 

@@ -5,7 +5,7 @@ This question is valuable. Instead of using Mujoco directly, we built several FI
 ## Why does the method significantly outperform TD3 with advanced decision? Please explain the comparison between the baselines in more details.
 - Td3-advance decision needs to output the whole action sequence (concatenate c steps), and the long action sequence will increase the output dimension (output_dim= c * single_action_dim). This increases the difficulty of the action space exploration. Thus, the agent cannot learn the optimal policy (mentioned in the introduction).
 - Our method represents diverse action sequences into low-dimensional space. RL algorithms only need to learn policies in the latent action space. Our method reduces the difficulty of exploration and performs better.
-Our algorithm is a plug-in method and can be applied to all major reinforcement learning methods. To ensure experimental fairness, all methods use Td3. This eliminates the framework advantages that Td3 brings to advance deisicion.
+- Our algorithm is a plug-in method and can be applied to all major reinforcement learning methods. To ensure experimental fairness, all methods use Td3. This eliminates the framework advantages that Td3 brings to advance deisicion.
 - Following results show the sensitive of two methods to action sequence dimension. The first table runs on Walker (Mujoco) and the second runs on Maze-hard (average of the 10 runs). It can be found that the exploration ability of Td3-advance decision decreases significantly with the increase of sequence length. We will add analysis in the new version.
 
 | method     | 18 dim| 36 dim| 54 dim|

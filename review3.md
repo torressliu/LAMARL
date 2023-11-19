@@ -1,5 +1,5 @@
 # Response
-Thanks for your valuable advice on robot learning. We will modify the presentation to improve the readability of the work. Hope that our answers will address your concerns. If so, we would appreciate it if you could kindly consider raising the score.
+Thanks for your valuable advice on robot learning. Hope that our answers will address your concerns. 
 ## As the main motivation of the method is to address a practical issue in the real-world robot learning environment. The paper only contains a short section about the snake robot experiment. 2. （除了机器人场景外，我们也在虚拟做，因为FIMDP在虚拟也很多，比如NPCcontorl,例如游戏中，云端服务器对终端NPC进行实时控制，一旦NPC中间卡顿，则会大幅度降低用户体验。因此我们follow eval scan of related works, e.g.[1][2].我们使用主流虚拟场景模拟远程控制NPC任务。）
 We apologize for the confusion caused by the robot experiment section and we will reconstruct this part writing. Please allow us to provide a clear explanation. Our primary objective is to introduce a novel general algorithm that contributes to the deep reinforcement learning community. Similar to the contribution of PDQN[1] and PADDPG[2] to the hybrid action control field. Hybrid control problems exist in both virtual scenarios and robot scenarios, and these papers are mainly verified in mainstream simulation tasks in the field of DRL. 
 
@@ -10,9 +10,15 @@ The reinforcement learning method proposed in this paper is aimed at the deep re
 [1] Xiong, Jiechao, et al. "Parametrized deep q-networks learning: Reinforcement learning with discrete-continuous hybrid action space." arXiv preprint arXiv:1810.06394 (2018).
 
 [2] Hu, Zhejie, and Tomoyuki Kaneko. "Hierarchical advantage for reinforcement learning in parameterized action space." 2021 IEEE Conference on Games (CoG). IEEE, 2021.
-## If the snake fails to receive any commands, simply stopping by doing nothing and waiting for the new commands is acceptable. （总分，放第一个，周期性信息缺失场景，但缺失原因不是丢包或延迟，而是机器蛇独有步态导致的。1.步态是什么2.步态如何导致周期性观测缺失3.如果中间停滞会无法完成任务4.所以需要超前决策）title:details of robot exp.
-We choose the task of the snake robot due to its unique rolling gait. The rolling gait of the snake robot is the most efficient gait for outdoor work at present, which includes the rolling of the head sensor. This gait causes the next observation to be acquired only when the head sensor rolls to a position parallel with the ground (this periodic acquisition observation results in FIMDP). If this rolling motion is interrupted midway, the next state cannot be obtained, leading to ineffective shaking. Our control system is the first in the field of robot snake to realize the task of rolling gait tracking. We describe the snake robot tracking task in detail in the new version.
-## The bandwidth should be enough for transmitting the small amount of data consisting of only 54-dimensional vectors
-This suggestion is very meaningful. We will describe the real world robot scenario in more detail in the new version. Although the observation of a single step of the robot snake is 54-d, the decision sequence of each step is 20, so the dimension is 1.08k. the control frequency of real interaction is 20 Hz.
+## Details of snake robot experiment.
+## If the snake fails to receive any commands, simply stopping by doing nothing and waiting for the new commands is acceptable.
+Snake robot point tracking is a periodic information acquisition task. The reason for this phenomenon is not packet loss or delay, but the unique rolling gait of the snake robot. The rolling gait of the snake robot is the most efficient gait for outdoor work at present, which includes the rolling of the head sensor. However, this gait causes the next observation to be acquired only when the head sensor rolls to a position parallel with the ground. If the rolling motion is interrupted midway, the next state cannot be obtained, leading to agent ineffective shaking.  Our control system is the first to complete the rolling gait tracking task. We describe the snake robot tracking task in detail and provide several [visualization results](https://anonymous.4open.science/r/ICLR2024-173C) in the new version.
+
+In addition to robot scenarios, fragmented interactions also exist in many virtual scenarios. For example, remote control of NPCS: In the game, the cloud server needs to control the terminal NPC in real time. NPC stalling can significantly degrade user experience. So we follow works with related evaluation scenarios (e.g.RTAC[1]RDAC[2]). We used mainstream virtual scenarios (Mujoco, D4RL) to simulate remote control of NPC tasks. Our method outperforms in these tasks.
+
+[1] Chris Pal, et al. "Real-time reinforcement learning." Advances in neural information processing systems 32 (2019).
+[2] Ramstedt, Simon, et al. "Reinforcement learning with random delays." arXiv preprint arXiv:2010.02966 (2020).
 ## It is usually good to include demo videos.
-Thanks for your advice. We are willing to provide the video, but our robot is pinted with the logo of the institution and was warned in the early stage of submission. Adequate experimental videos will be provided after the review. In order to make the task as clear as possible, we take several frames from the video and mask our logo. [This is the anonymous link.](https://anonymous.4open.science/r/ICLR2024-173C)
+Thanks for your advice. We are willing to provide the visualization results, we provide a [demo video and several visual description](https://anonymous.4open.science/r/ICLR2024-173C) of the task in the new version. 
+
+If our reply address your concerns, we would appreciate it if you could kindly consider raising the score.

@@ -1,5 +1,5 @@
 # Response
-We appreciate your valuable and inspiring comments. Hope that our response can address your concern. If so, we would appreciate it if you could kindly consider raising the score.
+We appreciate your valuable and inspiring comments. Hope that our response can address your concern. 
 ## Why is clustering representations of actions that have similar environmental effects better than clustering action sequences with similar values or rewards? 
 The in-depth explanation is as follows (Section 1 of the new version, highlight) :
 -	 Get accurate Q value is difficult: In sparse reward environments (such as FIMDP), reward and Q are difficult to obtain and the evaluation of Q values in the early stage of training is inaccurate. In contrast, environmental dynamic is more reliable and accessible.
@@ -21,7 +21,7 @@ we performe an experiment of different length decision steps. Following results 
 | Walker |$4715.6\pm 343.1$|$4613.2\pm 362.7$|$4215.9\pm 428.3$|
 | maze-hard  |$271.2\pm 11.4$|$258.3\pm 15.2$|$246.5\pm 21.3$|
 ## In a real-time RL setting, where it's not guaranteed that the actions actually executed by the executor strictly match the policy's output, do the collected trajectory samples inherently lack stationarity? 
-Section 3.2 of new version cover our method to guarante the training stability in detail (a common low-level method used in real-time control). Use the physical clocks on both devices to align. If obsolete, lose them. We retain the time stamp and execution flag of each action, which make actions executed in strict accordance with the timestamp order. When the new sequence arrives at the executor, the previous sequence will be replaced, and the execution flag of the unexecuted action will be False. The subsequent rewards will be accumulated into the new sequence. Thus, each latent space action reward is the sum of the executed action reward in the corresponding sequence. Following results shows the effect of alignment method (average of the 10 runs, Interval is 6). 
+Section 3.2 of new version cover our method to guarante the training stability in detail (a common low-level method used in real-time control). We use the physical clocks on both devices to align. If the actions are obsolete, lose them. We retain the time stamp and execution flag of each action, which make actions executed in strict accordance with the timestamp order. When the new sequence arrives at the executor, the previous sequence will be replaced, and the execution flag of the unexecuted action will be False. The subsequent rewards will be accumulated into the new sequence. Thus, each latent space action reward is the sum of the executed action reward in the corresponding sequence. Following results shows the effect of alignment method (average of the 10 runs, Interval is 6). 
 
 | Method      | Walker| maze-hard|
 | :-----------: | :------------: | :-----------: |
@@ -45,3 +45,5 @@ Further, in the experimental analysis, we compare the policy stability of these 
 | TD3- advanced decision |$2368.2\pm 316.4$|$913.2\pm 592.1$|$718.3\pm 176.8$|
 ## Should the "Musar" be referred to as "MARS"?
 Correct this in the new version.
+
+If our reply address your concerns, we would appreciate it if you could kindly consider raising the score.

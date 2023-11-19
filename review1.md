@@ -1,22 +1,21 @@
 # Response
-We appreciate your valuable and inspiring comments. Hope that our response can address your concern. 
 ## Why is clustering representations of actions that have similar environmental effects better than clustering action sequences with similar values or rewards? 
 The in-depth explanation is as follows (Section 1 of the new version, highlight) :
 -	 Get accurate Q value is difficult: In sparse reward environments (such as FIMDP), reward and Q are difficult to obtain and the evaluation of Q values in the early stage of training is inaccurate. In contrast, environmental dynamic is more reliable and accessible.
 -	Environmental dynamic contains more information: The same reward or Q value may correspond to different environmental changes, but the same environmental change must have the same reward or Q value.
 -	Environmental dynamic is reward-agnostic: In FIMDP, rewards are sparse. Environment dynamics do not require a per-step reward. Therefore, environmental dynamic representation is more robust in FIMDP.
 
-Further, in the experimental analysis, we compare these three representational learning methods (1. cluster by Env dynamic 2. cluster by Q 3. cluster by reward). We only changed the clustering representations to ensure experimental fairness (buffer size is $1e6$. Average of the 10 runs).
+Further, we compare three representational learning methods (1. cluster by Env dynamic 2. cluster by Q 3. cluster by reward). We only changed the clustering representations to ensure experimental fairness.
 
 | Method      | Halfcheetah | Walker | maze-hard |
 | :-----------: | :-----------: | :------------: | :-----------: |
 | Env dynamic (ours) |$7012.1\pm 131.4$|$4821.6\pm 427.6$|$311.4\pm 16.3$|
 | Q  |$6386.1\pm 412.7$|$4021.6\pm 313.7$|$275.2\pm 13.7$|
 | reward  |$6618.1\pm 372.7$|$4188.3\pm 185.5$|$253.9\pm 21.5$|
-## In the random FIMDP tasks mentioned in the paper, is the number of decision steps fixed within one trial or randomly decided during execution? 
-The number of decision steps is fixed. In FIMDP, the executor must maintain a high frequency of motion when it cannot interact. Thus, the number of decision steps should be longer than the maximum interaction interval.
+## Is the number of decision steps fixed within one trial or randomly decided during execution? 
+The number of decision steps is fixed. the executor must maintain a high frequency of motion when it cannot interact. Thus, the number of decision steps should be longer than the maximum interaction interval.
 ## How will the method perform if trained with longer action sequences but executed with a shorter interval, compared with training with shorter action sequences?
-we perform an experiment of different length decision steps. The following results show that reducing the number of steps as much as possible can improve scores (Average of the 10 runs. Interval is 6). As the number of steps increases, both the sequence dimension and the reward sparsity increase. These lead to an explosion of action space dimensions and difficulty in exploration, respectively.
+we perform an experiment of different length decision steps. The following results show that reducing the number of steps as much as possible can improve scores (Average of the 10 runs. Interval is 6). As the number of steps increases, both the sequence dimension and the reward sparsity increase. These lead to the difficulty in exploration.
 | task      | 6 step| 12 step| 18 step|
 | :-----------: | :-----------: | :------------: | :-----------: |
 | Walker |$4715.6\pm 343.1$|$4613.2\pm 362.7$|$4215.9\pm 428.3$|
@@ -43,7 +42,7 @@ Section 1 of the new version provides a detailed analysis: Our method is more st
 - Advance decision needs to output the whole action sequence (concatenate c steps), and the long action sequence will increase the output dimension (output_dim= c * single_action_dim). This increases the difficulty of the action space exploration. Thus, the agent cannot learn the optimal policy.
 - Our method represents diverse action sequences in low-dimensional space. RL algorithms only need to learn policies in the latent action space. Our method reduces the difficulty of exploration and performs better.
 
-Further, in the experimental analysis, we compare the policy stability of these three methods for sequence length. Ours provides high stability.
+Further, we compare the policy stability of these three methods for sequence length. Ours provides high stability.
 | method     | 6 step| 12 step| 18 step|
 | :-----------: | :-----------: | :------------: | :-----------: |
 | Ours |$4715.6\pm 343.1$|$4613.2\pm 362.7$|$4215.9\pm 428.3$|

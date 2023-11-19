@@ -5,6 +5,7 @@ The in-depth explanation is as follows (Section 1 of the new version, highlight)
 -	 Get accurate Q value is difficult: In sparse reward environments (such as FIMDP), reward and Q are difficult to obtain and the evaluation of Q values in the early stage of training is inaccurate. In contrast, environmental dynamic is more reliable and accessible.
 -	Environmental dynamic contains more information: The same reward or Q value may correspond to different environmental changes, but the same environmental change must have the same reward or Q value.
 -	Environmental dynamic is reward-agnostic: In FIMDP, rewards are sparse. Environment dynamic do not require per-step reward. Therefore, environmental dynamic representation is more robust in FIMDP.
+
 Further, in the experimental analysis, we compare these three representational learning methods (1.cluster by Env dynamic 2. cluster by Q 3. cluster by reward). We only changed the clustering representations to ensure experimental fairness (buffer size is $1e6$. Average of the 10 runs).
 
 | Method      | Halfcheetah | Walker | maze-hard |

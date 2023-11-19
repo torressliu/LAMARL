@@ -32,4 +32,4 @@ Verified by experiment:
 | TD3- frameskip |$3714.7\pm 252.1$|$941.6\pm 603.2$|$691.3\pm 122.4$|
 | TD3- advanced decision |$2368.2\pm 316.4$|$913.2\pm 592.1$|$718.3\pm 176.8$|
 
-If our reply address your concerns, we would appreciate it if you could kindly consider raising the score.
+##If our reply address your concerns, we would appreciate it if you could kindly consider raising the score.

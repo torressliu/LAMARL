@@ -10,5 +10,4 @@ In addition to robot scenarios, fragmented interactions also exist in many virtu
 [2] Ramstedt, Simon, et al. "Reinforcement learning with random delays." arXiv preprint arXiv:2010.02966 (2020).
 ## It is usually good to include demo videos.
 Thanks for your advice. We are willing to provide the visualization results, we provide a [demo video and several visual description](https://anonymous.4open.science/r/ICLR2024-C0F6/) of the task in the new version. 
-
-If our reply address your concerns, we would appreciate it if you could kindly consider raising the score.
+##If our reply address your concerns, we would appreciate it if you could kindly consider raising the score.

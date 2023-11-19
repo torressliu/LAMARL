@@ -29,9 +29,14 @@ Section 3.2 of the new version covers our method to guarantee training stability
 | Ours |$4463.2\pm 362.7$|$311.4\pm 16.3$|
 | without alignment |$4168.3\pm 372.6$|$213.1\pm 16.7$|
 ## Why MARS has a more pronounced advantage over frame-skips in simpler tasks than in more complex tasks?
-Because the simple tasks do not require too much action change, the demand for internal diversification of the action sequence is not high. So frameksip can learn suboptimal policies.
+Compared to frameskip, MARS does have a reduced advantage on several difficult tasks, e.g. Maze_hard,HalfCheetah. This is because the VAE hyperparameters of MARS are not optimized in difficult tasks, but keep the same settings as those in simple tasks. We adjust the VAE hyperparameters while keeping the remaining hyperparameters unchanged for both methods （following table). By doing this MARS has a more pronounced advantage on complex tasks . (Old score of MARS in maze-Hard:$315.2\pm 13.9$, old score of MARS in maze-Hard:$6417.3\pm 317.3$)
+
+| method     |  maze-hard| HalfCheetah|
+| :-----------: | :-----------: | :------------: | 
+| Ours |$356.4\pm 16.3$|$8631.5\pm 265.2$|
+| TD3- frameskip |$285.7\pm 12.5$|$5842.3\pm 306.7$|
 ## Does the decoder need to be run on the execution device? Does this mean that latent representations will also be lost?
-We do not deploy the decoder to the executor. Although there is an interval between interactions, the agent will make a c step decision based on each timestep information, so each time step (t+i) will receive c times in the future. In addition, our decision sequences are set at maximum intervals to ensure that the executing end receives the next sequence before the previous sequence is completed.
+We do not deploy the decoder to the executor. Although there is an interval between interactions, the agent will make a c step decision based on each timestep information, so each time step (t+i) will receive c times in the future. In addition, our decision sequences are set at maximum intervals to ensure that the executor receives the next sequence before the previous sequence is completed.
 ## The paper mentions that MARS has better stationarity.  
 Section 1 of the new version provides a detailed analysis: Our method is more stable than frameskip and Advance decision. 
 - The essence of frameskip is the repetition of an action, which leads to internal homogeneity of the action sequence and the inability to change the action at key states. Thus, the policy is unstable.
